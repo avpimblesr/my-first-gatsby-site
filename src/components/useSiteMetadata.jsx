@@ -4,9 +4,14 @@ import { graphql, useStaticQuery } from "gatsby";
 const useSiteMetadata = ({ title }) => {
   const data = useStaticQuery(graphql`
     query {
-      site {
-        siteMetadata {
-          title
+      allMdx(sort: { fields: frontmatter___date, order: DESC }) {
+        nodes {
+          frontmatter {
+            date(formatString: "MMMM D, YYYY")
+            title
+          }
+          id
+          excerpt
         }
       }
     }
